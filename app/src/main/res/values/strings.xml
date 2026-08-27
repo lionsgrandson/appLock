@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AppLock</string>
+    <string name="accessibility_service_description">Blocks the distracting apps you selected while AppLock is active.</string>
+    <string name="companion_service_name">Trusted device presence</string>
+</resources>
