@@ -2,10 +2,8 @@ package com.codecrafter.applock;
 
 import android.companion.AssociationInfo;
 import android.companion.CompanionDeviceManager;
-import android.companion.ObservingDevicePresenceRequest;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 
 public final class CompanionHelper {
     private CompanionHelper() {}
@@ -23,24 +21,15 @@ public final class CompanionHelper {
     }
 
     public static void startObservation(Context context) {
-        if (Build.VERSION.SDK_INT < 33) return;
-
         int associationId = Prefs.get(context).getInt(Prefs.KEY_ASSOCIATION_ID, -1);
-        if (associationId < 0) return;
+        String address = Prefs.get(context).getString(Prefs.KEY_ASSOCIATION_ADDRESS, null);
+        if (associationId < 0 || address == null || address.isEmpty()) return;
 
         CompanionDeviceManager manager = context.getSystemService(CompanionDeviceManager.class);
         if (manager == null) return;
 
         try {
-            if (Build.VERSION.SDK_INT >= 36) {
-                ObservingDevicePresenceRequest request = new ObservingDevicePresenceRequest.Builder()
-                        .setAssociationId(associationId)
-                        .build();
-                manager.startObservingDevicePresence(request);
-            } else {
-                String address = Prefs.get(context).getString(Prefs.KEY_ASSOCIATION_ADDRESS, null);
-                if (address != null && !address.isEmpty()) manager.startObservingDevicePresence(address);
-            }
+            manager.startObservingDevicePresence(address);
         } catch (SecurityException | IllegalArgumentException | IllegalStateException ignored) {
         }
     }
