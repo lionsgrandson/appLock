@@ -1,6 +1,6 @@
 # AppLock
 
-A local-only Android distraction blocker.
+A local-only Android distraction blocker for Android 13+.
 
 ## What it does
 
@@ -18,7 +18,7 @@ A local-only Android distraction blocker.
 
 The trusted-device mode is best effort. Another Android phone does not need this AppLock app installed, but it must be discoverable/associable over Bluetooth at pairing time, and Android must later be able to observe its BLE range or Bluetooth connection. Phones frequently rotate Bluetooth addresses or stop advertising in the background, so a watch, earbuds, or another dedicated Bluetooth accessory will generally produce more reliable presence events than an arbitrary phone.
 
-The app intentionally does not use Google Home because Google Home does not expose a simple reliable API for “this arbitrary friend's phone is now physically near my phone.”
+The app intentionally does not use Google Home in this first build. Google Home's current Android APIs require OAuth, Home structure permission, and access to the user's Home data, while Companion Device presence is local and much simpler for this use case.
 
 ## Build on Windows
 
